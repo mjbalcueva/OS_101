@@ -52,8 +52,8 @@ void print_avg_time(int n, int burst_time[], int waiting_time[])
 
   avg_turnaround_time = (float)total / n;
 
-  printf("\n\nAverage waiting time = %f", avg_wait_time);
-  printf("\nAverage turn around time = %f", avg_turnaround_time);
+  printf("\n\nAverage waiting time = %.2f", avg_wait_time);
+  printf("\nAverage turn around time = %.2f", avg_turnaround_time);
 }
 
 int main()
