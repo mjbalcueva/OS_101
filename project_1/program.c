@@ -25,7 +25,7 @@ void get_waiting_time(int n, int burst_time[], int waiting_time[])
 
 void print_table(int n, int burst_time[], int waiting_time[])
 {
-  printf("\nProcess\t   Burst Time   \tWaiting Time\tTurnaround Time");
+  printf("\nProcess\t\tBurst Time\tWaiting Time\tTurnaround Time");
   for (int i = 0; i < n; i++)
   {
     printf("\n%d\t\t%d\t\t%d\t\t%d", i + 1, burst_time[i], waiting_time[i], burst_time[i] + waiting_time[i]);
