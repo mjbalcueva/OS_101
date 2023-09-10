@@ -1,60 +1,67 @@
 #include <stdio.h>
 
-void get_burst_time(int process_count, int process_id[], int burst_time[])
+void getBurstTime(int processCount, int burstTime[])
 {
-  for (int i = 0; i < process_count; i++)
+  for (int i = 0; i < processCount; i++)
   {
-    printf("Enter burst time for processes #%d: ", i + 1);
-    scanf("%d", &burst_time[i]);
-    process_id[i] = i + 1;
+    printf("Enter burst time for process #%d: ", i + 1);
+    scanf("%d", &burstTime[i]);
   }
 }
 
-void get_waiting_time(int process_count, int burst_time[], int waiting_time[])
+void getWaitingTime(int processCount, int burstTime[], int waitingTime[])
 {
-  waiting_time[0] = 0;
+  waitingTime[0] = 0;
 
-  for (int i = 1; i < process_count; i++)
+  for (int i = 1; i < processCount; i++)
   {
-    waiting_time[i] = 0;
+    waitingTime[i] = 0;
     for (int j = 0; j < i; j++)
     {
-      waiting_time[i] += burst_time[j];
+      waitingTime[i] += burstTime[j];
     }
   }
 }
 
-void print_results(int process_count, int process_id[], int burst_time[], int waiting_time[], int turnaround_time[])
+void getTurnaroundTime(int processCount, int burstTime[], int waitingTime[], int turnaroundTime[])
 {
-  float avg_wait_time, avg_turnaround_time, total_wait_time = 0, total_turnaround_time = 0;
+  for (int i = 0; i < processCount; i++)
+  {
+    turnaroundTime[i] = burstTime[i] + waitingTime[i];
+  }
+}
+
+void printResults(int processCount, int burstTime[], int waitingTime[], int turnaroundTime[])
+{
+  float avgWaitTime, avgTurnaroundTime, totalWaitTime = 0, totalTurnaroundTime = 0;
 
   printf("\nProcess\t\tBurst Time\tWaiting Time\tTurnaround Time");
-  for (int i = 0; i < process_count; i++)
+  for (int i = 0; i < processCount; i++)
   {
-    turnaround_time[i] = burst_time[i] + waiting_time[i];
-    total_wait_time += waiting_time[i];
-    total_turnaround_time += turnaround_time[i];
-    printf("\nP%d\t\t%d\t\t%d\t\t%d", process_id[i], burst_time[i], waiting_time[i], turnaround_time[i]);
+    totalWaitTime += waitingTime[i];
+    totalTurnaroundTime += turnaroundTime[i];
+    printf("\nP%d\t\t%d\t\t%d\t\t%d", i + 1, burstTime[i], waitingTime[i], turnaroundTime[i]);
   }
 
-  avg_wait_time = total_wait_time / process_count;
-  avg_turnaround_time = total_turnaround_time / process_count;
-  printf("\n\nAverage Waiting Time = %.2f", avg_wait_time);
-  printf("\nAverage Turnaround Time = %.2f\n", avg_turnaround_time);
+  avgWaitTime = totalWaitTime / processCount;
+  avgTurnaroundTime = totalTurnaroundTime / processCount;
+  printf("\n\nAverage Waiting Time = %.2f", avgWaitTime);
+  printf("\nAverage Turnaround Time = %.2f\n", avgTurnaroundTime);
 }
 
 int main()
 {
-  int process_count;
+  int processCount;
 
-  printf("Enter number of process: ");
-  scanf("%d", &process_count);
+  printf("Enter number of processes: ");
+  scanf("%d", &processCount);
 
-  int process_id[process_count], burst_time[process_count], waiting_time[process_count], turnaround_time[process_count];
+  int burstTime[processCount], waitingTime[processCount], turnaroundTime[processCount];
 
-  get_burst_time(process_count, process_id, burst_time);
-  get_waiting_time(process_count, burst_time, waiting_time);
-  print_results(process_count, process_id, burst_time, waiting_time, turnaround_time);
+  getBurstTime(processCount, burstTime);
+  getWaitingTime(processCount, burstTime, waitingTime);
+  getTurnaroundTime(processCount, burstTime, waitingTime, turnaroundTime);
+  printResults(processCount, burstTime, waitingTime, turnaroundTime);
 
   return 0;
 }
