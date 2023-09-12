@@ -1,11 +1,12 @@
 #include <stdio.h>
+
 int main()
 {
   // Matrix for storing Process Id, Burst
   // Time, Average Waiting Time & Average
   // Turn Around Time.
   int A[100][4];
-  int i, j, n, total = 0, index, tempp;
+  int i, j, n, total = 0, index, temp; //* fix typo tempp
   float avg_wt, avg_tat;
   printf("Enter number of process: ");
   scanf("%d", &n);
@@ -23,20 +24,21 @@ int main()
     index = i;
     for (j = i + 1; j < n; j++)
       if (A[j][1] < A[index][1])
-        index = i;
+        index = j; //* fix assignment from i to j
     temp = A[i][1];
     A[i][1] = A[index][1];
     A[index][1] = temp;
 
     temp = A[i][0];
     A[i][0] = A[index][0];
-    A[index][0] = tempp;
+    A[index][0] = temp; //* fix typo tempp
   }
-  A[0][2] = 1;
+  A[0][2] = 0; //* fix assignment from 1 to 0
   // Calculation of Waiting Times
+  for (i = 1; i < n; i++) //* add for loop
   {
     A[i][2] = 0;
-    for (j = 0; i < j; j++) // j < i;
+    for (j = 0; j < i; j++) // j < i; //* applied j < i instead of i < j
       A[i][2] += A[j][1];
     total += A[i][2];
   }
@@ -45,12 +47,11 @@ int main()
   printf("P	 BT	 WT	 TAT\n");
   // Calculation of Turn Around Time and printing the
   // data.
-  for (i = 1; i < n; i++)
-  { // i = 0
+  for (i = 0; i < n; i++) //* change i = 0 from i = 1
+  {                       // i = 0
     A[i][3] = A[i][1] + A[i][2];
     total += A[i][3];
-    printf("P%d	 %d	 %d	 %d\n", A[i][0],
-           A[i][1], A[i][2], A[i][4]);
+    printf("P%d\t%d\t%d\t%d\n", A[i][0], A[i][1], A[i][2], A[i][3]); //* fix typo A[i][3] instead of A[i][4]
   }
   avg_tat = (float)total / n;
   printf("Average Waiting Time= %.2f", avg_wt);
