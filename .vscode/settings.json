@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "*.jsx": "javascriptreact",
+    "*.tsx": "typescriptreact",
+    "*.css": "tailwindcss",
+    "stdio.h": "c",
+    "stdlib.h": "c"
+  }
+}
