@@ -40,7 +40,6 @@ void bestFit(Object memory, Object file, Process *processes)
         min = memory.sizes[j];
 
     for (int j = 0; j < memory.count; j++)
-    {
       if (memory.sizes[j] == min)
       {
         processes[i].blockID = j + 1;
@@ -50,7 +49,6 @@ void bestFit(Object memory, Object file, Process *processes)
         memory.sizes[j] -= file.sizes[i];
         break;
       }
-    }
   }
 }
 
